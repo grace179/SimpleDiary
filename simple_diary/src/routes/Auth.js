@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { authService, firebaseInstance } from '../fBase';
+import styled from 'styled-components';
 
 const Auth = () => {
     const [email, setEmail] = useState("");
@@ -47,22 +48,98 @@ const Auth = () => {
     }
 
     return (
-        <div>
+        <Container>
+
             <form onSubmit={onSubmit}>
 
                 <input name="email" type="email" placeholder="Email" required value={email}
                 onChange={onChange}/>
                 <input name="password" type="password" placeholder="Password" required value={password}
                 onChange={onChange}/>
-                <input type="submit" value={newAccount ? "Create Account" : "Login"}/>
+                <SubmitInput type="submit" value={newAccount ? "Create Account" : "Login"}
+                />
                 {error}
             </form>
-            <span onClick={toggleAccount}>{newAccount ? "Sign In":"Create Account"}</span>
-            <div>
+            
                 <button onClick={onGoogleClick}>Continue with Google</button>
-            </div>
-        </div>
+            
+            <span onClick={toggleAccount}>{newAccount ? "Sign In":"Create Account"}</span>
+
+        </Container>
     );
 }
+
+const Container = styled.div`
+    max-width: 350px;
+    min-height: 80vh;
+    background-color: #fff;
+    padding: 30px;
+    margin: 20px auto;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+
+    span{
+        text-align: right;
+        margin-top: 1em;
+        font-weight: 600;
+        cursor: pointer;
+        opacity: 1;
+
+        &:hover{
+            opacity: 0.7;
+        }
+    }
+
+    input{
+        width: 90%;
+        padding: 0.7em;
+        margin-bottom: 1em;
+        border-radius: 30px;
+        border: 2px solid #FADCF3;
+        &:focus{
+            outline:0 none;}
+        }
+
+    }
+
+    button{
+        width: 90%;
+        border-radius: 30px;
+        padding: 10px;
+        background: #FADCF3;
+        border: 2px solid #FADCF3;
+        cursor: pointer;
+
+        &:hover{
+            background: #fff;
+            border: 2px solid #FADCF3;
+        }
+        &:focus{
+            outline:0 none;}
+        }
+
+    `;
+const SubmitInput = styled.input`
+    padding: 0.7em;
+    margin-bottom: 1em;
+    border-radius: 30px;
+    border: 2px solid #FADCF3;
+    background-color: #FADCF3;
+    cursor: pointer;
+
+    &:hover{
+        background: #fff;
+        border: 2px solid #FADCF3;
+    }
+    &:focus{
+        outline:0 none;}
+    }
+`;
 
 export default Auth;
