@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AppRouter from './Router';
 import {authService} from '../fBase';
+import styled from 'styled-components';
+
 
 function App() {
 
@@ -25,12 +27,25 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <Container>
       {init ? 
         <AppRouter isLoggedIn={isLoggedIn}/>
         : "Initializing"}
-    </div>
+    </Container>
   );
 }
+
+
+const Container = styled.div`
+    max-width: 350px;
+    min-height: 80vh;
+    background-color: #fff;
+    padding: 30px;
+    margin: 20px auto;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    text-align: center;
+`;
 
 export default App;
