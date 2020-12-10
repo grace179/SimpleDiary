@@ -73,10 +73,8 @@ const Container = styled.div`
     max-width: 350px;
     min-height: 80vh;
     background-color: #fff;
-    padding: 30px;
     margin: 20px auto;
     border-radius: 5px;
-    border: 1px solid #ddd;
     display:flex;
     flex-direction: column;
     align-items: center;
