@@ -10,12 +10,14 @@ function App() {
 
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
     // console.log(user)
       if(user){
         setIsLoggedIn(true);
+        setUserObj(user);
       }else{
         setIsLoggedIn(false);
       }
@@ -29,7 +31,8 @@ function App() {
   return (
     <Container>
       {init ? 
-        <AppRouter isLoggedIn={isLoggedIn}/>
+        <AppRouter isLoggedIn={isLoggedIn}
+        userObj={userObj}/>
         : "Initializing"}
     </Container>
   );
@@ -40,10 +43,10 @@ const Container = styled.div`
     max-width: 350px;
     min-height: 80vh;
     background-color: #fff;
-    padding: 30px;
+    padding: 10px;
     margin: 20px auto;
     border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     box-sizing: border-box;
     text-align: center;
 `;
