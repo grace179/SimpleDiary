@@ -34,21 +34,27 @@ const Diary = ({diaryObj,isOwner}) => {
                 {edit ? (
                     <>
                         <form onSubmit={onSubmit}>
-                            <input type="text" value={newDiary}
+                            <TextInput type="text" value={newDiary}
                             onChange={onChange} required/>
-                            <input type="submit" value="update"/>
+                            <br/>
+                            <Update type="submit" value="Update"/>
                         </form>
                         <Button onClick={toggleEdit}>Cancel</Button>
                     </>
                 ):(
-                    <>
+                    <DiaryContain>
+                        {diaryObj.photoUrl && <Photo src={diaryObj.photoUrl}/>}
+                        <Main>
+
                         <h4>{diaryObj.text}</h4>
                         {isOwner && 
-                        <>
+                            <>
                             <Button onClick={onDelete}>Delete</Button>
                             <Button onClick={toggleEdit}>Edit</Button>
-                        </>}
-                    </>
+                            </>
+                        }
+                        </Main>
+                    </DiaryContain>
                 )}
                 
                 
@@ -59,7 +65,49 @@ const Contain = styled.div`
     height: 80px;
     border: 1px solid #eee;
     margin-bottom: 1em;
+    padding: 0.5em;
 `;
+
+const TextInput = styled.input`
+    width: 70%;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    border: 2px solid #FADCF3;
+    border-radius: 4px;
+    &:focus{
+        border: 2px solid #FADC;
+        outline: 0 none;
+    }
+        
+    `;
+const DiaryContain = styled.div`
+    display: flex;
+`;
+
+const Main = styled.div`
+    margin: 0 auto;
+`;
+
+const Photo = styled.img`
+    width: 100px;
+    margin-right: 0.5em;
+`;
+const Update = styled.input`
+    display: inline-block;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 1;
+
+    &:hover{
+        opacity: 0.7;
+    }
+    &:focus{
+        outline:0 none;}
+
+`;
+
 const Button = styled.button`
     font-weight: 500;
     background: transparent;
