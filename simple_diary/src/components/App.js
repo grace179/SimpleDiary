@@ -3,35 +3,43 @@ import AppRouter from './Router';
 import {authService} from '../fBase';
 import styled from 'styled-components';
 
-
 function App() {
 
   console.log(authService.currentUser);
 
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
     // console.log(user)
       if(user){
-        setIsLoggedIn(true);
-        setUserObj(user);
-      }else{
-        setIsLoggedIn(false);
+        setUserObj({
+          displayName: user.displayName,
+          uid: user.uid,
+          updateProfile: (args)=>user.updateProfile(args),
+        });
+        
       }
       setInit(true);
     });
-
-    return () => {
-    };
   }, []);
+
+  const refreshUser = () => {
+    const user = authService.currentUser;
+    setUserObj({
+      displayName: user.displayName,
+      uid: user.uid,
+      updateProfile: (args)=>user.updateProfile(args),
+    });
+  }
 
   return (
     <Container>
       {init ? 
-        <AppRouter isLoggedIn={isLoggedIn}
+        <AppRouter 
+        isLoggedIn={Boolean(userObj)}
+        refreshUser={refreshUser}
         userObj={userObj}/>
         : "Initializing"}
     </Container>

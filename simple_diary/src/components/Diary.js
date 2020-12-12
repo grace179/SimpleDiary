@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { dbService } from '../fBase';
+import { dbService, storageService } from '../fBase';
 
 const Diary = ({diaryObj,isOwner}) => {
     const [edit, setEdit] = useState(false);
     const [newDiary, setNewDiary] = useState(diaryObj.text);
 
-    const onDelete = async (event) => {
+    const onDelete = async () => {
         const ok = window.confirm("Are you sure want to delete?");
         if(ok){
             // delete diary
             await dbService.doc(`diarys/${diaryObj.id}`).delete();
+            await storageService.refFromURL(diaryObj.photoUrl).delete();
         }
     };
 
@@ -43,17 +44,18 @@ const Diary = ({diaryObj,isOwner}) => {
                     </>
                 ):(
                     <DiaryContain>
-                        {diaryObj.photoUrl && <Photo src={diaryObj.photoUrl}/>}
                         <Main>
 
                         <h4>{diaryObj.text}</h4>
                         {isOwner && 
-                            <>
-                            <Button onClick={onDelete}>Delete</Button>
-                            <Button onClick={toggleEdit}>Edit</Button>
-                            </>
+                            <BtnGroup>
+                                <Button onClick={onDelete}>Delete</Button>
+                                <Button onClick={toggleEdit}>Edit</Button>
+                            </BtnGroup>
                         }
                         </Main>
+                        {diaryObj.photoUrl && <Photo src={diaryObj.photoUrl}/>}
+
                     </DiaryContain>
                 )}
                 
@@ -66,6 +68,8 @@ const Contain = styled.div`
     border: 1px solid #eee;
     margin-bottom: 1em;
     padding: 0.5em;
+    position: relative;
+
 `;
 
 const TextInput = styled.input`
@@ -82,15 +86,28 @@ const TextInput = styled.input`
     `;
 const DiaryContain = styled.div`
     display: flex;
+    justify-content: space-between;
+
 `;
 
 const Main = styled.div`
-    margin: 0 auto;
+`;
+
+const BtnGroup = styled.div`
+    position: absolute;
+    left:0;
+    bottom:0;
+
 `;
 
 const Photo = styled.img`
-    width: 100px;
-    margin-right: 0.5em;
+    width: 40%;
+    margin-left: 0.5em;
+    transition: transform 300ms ease-in;
+
+    &:hover {
+        transform: scale(2);
+    }
 `;
 const Update = styled.input`
     display: inline-block;

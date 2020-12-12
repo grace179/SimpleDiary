@@ -155,6 +155,7 @@ const DiaryContainer = styled.div`
     max-height: 400px;
     overflow-y: auto;
     margin-top: 1em;
+    
 `;
 
 

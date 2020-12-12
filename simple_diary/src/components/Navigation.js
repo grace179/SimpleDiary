@@ -2,12 +2,12 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
-const Navigation = () => {
+const Navigation = ({userObj}) => {
     return (
         <nav>
             <ListContainer>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/profile">Profile</Link></li>
+    <li><Link to="/profile">{userObj.displayName} Profile</Link></li>
             </ListContainer>
         </nav>
     );
