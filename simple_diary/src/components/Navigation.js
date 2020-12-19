@@ -7,7 +7,7 @@ const Navigation = ({userObj}) => {
         <nav>
             <ListContainer>
                 <li><Link to="/">Home</Link></li>
-    <li><Link to="/profile">{userObj.displayName} Profile</Link></li>
+                <li><Link to="/profile">{userObj.displayName}의 Profile</Link></li>
             </ListContainer>
         </nav>
     );
@@ -15,13 +15,15 @@ const Navigation = ({userObj}) => {
 
 const ListContainer = styled.ul`
     display:flex;
-    justify-content:center;
+    justify-content: space-around;
+    width: 100%;
     padding: 1em 0 ;
     margin: 0;
     margin-bottom: 2em;
     list-style: none;
     font-size: 1em;
-    background:#FADCF3;
+    font-weight: 600;
+    border-bottom: 1px solid #FADCF3;
     cursor: pointer;
 
     li {

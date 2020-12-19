@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AppRouter from './Router';
 import {authService} from '../fBase';
 import styled from 'styled-components';
+import Spinner from './Spinner';
 
 function App() {
 
@@ -41,22 +42,19 @@ function App() {
         isLoggedIn={Boolean(userObj)}
         refreshUser={refreshUser}
         userObj={userObj}/>
-        : "Initializing"}
+        : <Spinner/>}
     </Container>
   );
 }
 
 
 const Container = styled.div`
-    max-width: 350px;
+    min-width: 350px;
+    max-width: 1200px;
     min-height: 80vh;
     background-color: #fff;
-    padding: 10px;
-    margin: 20px auto;
-    border-radius: 5px;
-    border: 2px solid #ddd;
     box-sizing: border-box;
-    text-align: center;
+    margin: 0 auto;
 `;
 
 export default App;

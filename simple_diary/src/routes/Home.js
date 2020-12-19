@@ -3,12 +3,14 @@ import { dbService, storageService } from '../fBase';
 import styled from 'styled-components';
 import Diary from '../components/Diary';
 import { v4 as uuidv4} from 'uuid';
+import Spinner from '../components/Spinner';
 
 const Home = ({userObj}) => {
 
     const [diary, setDiary] = useState("");
     const [diarys, setDiarys] = useState([]);
     const [photo, setPhoto] = useState("");
+    const [init, setInit] = useState(false);
 
     useEffect(() => {
         dbService.collection("diarys")
@@ -20,7 +22,7 @@ const Home = ({userObj}) => {
                 }));
                 setDiarys(diarysArray);
             });
-
+        setInit(true);
     }, []);
     // console.log(diarys);    
     const onSubmit = async (event) => {
@@ -67,7 +69,7 @@ const Home = ({userObj}) => {
 
     return (
         <div>
-            <form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit}>
                 <TextInput value={diary} onChange={onChange} 
                 type="text" placeholder="How was the day today?" 
                 maxLength={200}/>
@@ -84,26 +86,37 @@ const Home = ({userObj}) => {
                 <Upload type="submit" value="Upload"
                 />
                 
-            </form>
+            </Form>
+                {
+                    init ? 
 
-            <DiaryContainer>
-                {diarys.map(d => 
-                    <Diary 
-                    diaryObj={d} 
-                    key={d.id}
-                    isOwner={d.creatorId === userObj.uid}/>
-                )}
-            </DiaryContainer>
+                    (<DiaryContainer>
+                    {diarys.map(d => 
+                        <Diary 
+                        diaryObj={d} 
+                        key={d.id}
+                        isOwner={d.creatorId === userObj.uid}/>
+                    )}
+                    </DiaryContainer>):
+                    <Spinner/>
+                }
         </div>
     );
 }
+
+const Form = styled.form`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+`;
 
 const TextInput = styled.input`
     width: 70%;
     padding: 1em;
     margin-bottom: 0.5em;
     border: 2px solid #FADCF3;
-    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 1em;
     &:focus{
         border: 2px solid #FADC;
         outline: 0 none;
@@ -112,8 +125,8 @@ const TextInput = styled.input`
     `;
 
 const Img = styled.img`
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     margin-top: 0.5em;
     margin-right:0.5em;
 `;
@@ -152,11 +165,16 @@ const Upload = styled.input`
 `;
 
 const DiaryContainer = styled.div`
-    max-height: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    // justify-content: space-around;
+    max-height: 700px;
+    width: 100%;
     overflow-y: auto;
-    margin-top: 1em;
-    
-`;
+    overflow-x: hidden;
+    margin: 1em auto;
+    padding: 4%;
+    `;
 
 
 export default Home;

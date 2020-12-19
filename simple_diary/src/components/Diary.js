@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { dbService, storageService } from '../fBase';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faPen} from '@fortawesome/free-solid-svg-icons';
+
 
 const Diary = ({diaryObj,isOwner}) => {
     const [edit, setEdit] = useState(false);
@@ -29,11 +33,16 @@ const Diary = ({diaryObj,isOwner}) => {
     const onChange = (event) => {
         const {target: {value}} = event;
         setNewDiary(value);
-    }
+    };
+
+    const time = new Date(diaryObj.createdAt);
+    const createTime = time.toDateString();
+
     return (
             <Contain>
+                <h4>{createTime}</h4>
                 {edit ? (
-                    <>
+                    <EditContain>
                         <form onSubmit={onSubmit}>
                             <TextInput type="text" value={newDiary}
                             onChange={onChange} required/>
@@ -41,35 +50,44 @@ const Diary = ({diaryObj,isOwner}) => {
                             <Update type="submit" value="Update"/>
                         </form>
                         <Button onClick={toggleEdit}>Cancel</Button>
-                    </>
+                    </EditContain>
                 ):(
                     <DiaryContain>
+                        {diaryObj.photoUrl && <Photo src={diaryObj.photoUrl}/>}
+
                         <Main>
 
-                        <h4>{diaryObj.text}</h4>
+                        <h5>{diaryObj.text}</h5>
                         {isOwner && 
                             <BtnGroup>
-                                <Button onClick={onDelete}>Delete</Button>
-                                <Button onClick={toggleEdit}>Edit</Button>
+                                <Button onClick={onDelete}>
+                                    <FontAwesomeIcon icon={faTrash}/>
+                                </Button>
+                                <Button onClick={toggleEdit}>
+                                    <FontAwesomeIcon icon={faPen}/>
+                                </Button>
                             </BtnGroup>
                         }
                         </Main>
-                        {diaryObj.photoUrl && <Photo src={diaryObj.photoUrl}/>}
 
                     </DiaryContain>
                 )}
-                
-                
             </Contain>
     );
 }
 const Contain = styled.div`
-    height: 80px;
-    border: 1px solid #eee;
-    margin-bottom: 1em;
+    width: 30%;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin: 0.5em;
     padding: 0.5em;
+    text-align: center;
     position: relative;
+    overflow: hidden;
+`;
 
+const EditContain = styled.div`
+    margin-top: 20%;
 `;
 
 const TextInput = styled.input`
@@ -86,8 +104,9 @@ const TextInput = styled.input`
     `;
 const DiaryContain = styled.div`
     display: flex;
-    justify-content: space-between;
-
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 const Main = styled.div`
@@ -101,13 +120,7 @@ const BtnGroup = styled.div`
 `;
 
 const Photo = styled.img`
-    width: 40%;
-    margin-left: 0.5em;
-    transition: transform 300ms ease-in;
-
-    &:hover {
-        transform: scale(2);
-    }
+    width: 90%;
 `;
 const Update = styled.input`
     display: inline-block;
