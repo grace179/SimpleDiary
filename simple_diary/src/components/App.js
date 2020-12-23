@@ -3,6 +3,7 @@ import AppRouter from './Router';
 import {authService} from '../fBase';
 import styled from 'styled-components';
 import Spinner from './Spinner';
+import Footer from './Footer';
 
 function App() {
 
@@ -38,10 +39,13 @@ function App() {
   return (
     <Container>
       {init ? 
+      <>
         <AppRouter 
         isLoggedIn={Boolean(userObj)}
         refreshUser={refreshUser}
         userObj={userObj}/>
+        <Footer/>
+      </>
         : <Spinner/>}
     </Container>
   );

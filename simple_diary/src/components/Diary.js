@@ -40,7 +40,7 @@ const Diary = ({diaryObj,isOwner}) => {
 
     return (
             <Contain>
-                <h4>{createTime}</h4>
+                <Time>{createTime}</Time>
                 {edit ? (
                     <EditContain>
                         <form onSubmit={onSubmit}>
@@ -80,7 +80,8 @@ const Contain = styled.div`
     border: 1px solid #ddd;
     box-sizing: border-box;
     margin: 0.5em;
-    padding: 0.5em;
+    padding: 0.4em;
+    padding-top: 0;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -146,7 +147,7 @@ const Button = styled.button`
     opacity: 1;
 
     &:hover{
-        opacity: 0.7;
+        opacity: 0.6;
     }
     &:focus{
         outline:0 none;}
@@ -154,4 +155,8 @@ const Button = styled.button`
 
 `;
 
+const Time = styled.h4`
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #dedede;
+`;
 export default Diary;

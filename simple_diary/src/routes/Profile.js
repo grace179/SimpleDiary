@@ -13,18 +13,6 @@ const Profile = ({refreshUser,userObj}) => {
 
     };
 
-    // const getMyDiary = async () => {
-    //     const diarys = await dbService
-    //                             .collection("diarys")
-    //                             .where("creatorId", "==", userObj.uid)
-    //                             .orderBy("createdAt")
-    //                             .get();
-    //     console.log(diarys.docs.map((doc)=>doc.data()));
-    // };
-    
-    // useEffect(() => {
-    //     getMyDiary();
-    // }, []);
     const onChange = (event) => {
         const {target: {value},} = event;
         setNewDisplayName(value);
@@ -42,23 +30,28 @@ const Profile = ({refreshUser,userObj}) => {
         }
     }
     return (
-        <div>
+        <Contain>
             <form onSubmit={onSubmit}>
                 <TextInput type="text" placeholder="Display UserName" onChange={onChange}
                 maxLength={10}/>
                 <UpdateBtn type="submit" value="Update" />
             </form>
             <LogOutBtn onClick={onLogOut}>Log Out</LogOutBtn>
-        </div>
+        </Contain>
     );
 }
 
+const Contain = styled.div`
+    text-align: center;
+`;
+
 const TextInput = styled.input`
-    width: 50%;
-    padding: 0.5em;
-    margin-bottom: 0.5em;
+    width: 45%;
+    padding: 0.8em;
+    margin-bottom: 1em;
+    margin-right: 0.5em;
     border: 2px solid #FADCF3;
-    border-radius: 4px;
+    border-radius: 5px;
     &:focus{
         border: 2px solid #FADC;
         outline: 0 none;
@@ -67,6 +60,7 @@ const TextInput = styled.input`
     `;
 const UpdateBtn = styled.input`
     font-weight: 500;
+    font-size: 0.9em;
     background: transparent;
     border: none;
     cursor: pointer;

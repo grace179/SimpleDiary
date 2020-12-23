@@ -113,10 +113,10 @@ const Container = styled.div`
         background: #FADCF3;
         border: 2px solid #FADCF3;
         cursor: pointer;
+        opacity: 1;
 
         &:hover{
-            background: #fff;
-            border: 2px solid #FADCF3;
+            opacity: 0.7;
         }
         &:focus{
             outline:0 none;}

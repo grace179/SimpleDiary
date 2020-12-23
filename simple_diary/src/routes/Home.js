@@ -154,11 +154,12 @@ const Upload = styled.input`
     background: #FADCF3;
     border: 2px solid #FADCF3;
     cursor: pointer;
-
+    opacity: 1;
+    
     &:hover{
-        background: #fff;
-        border: 2px solid #FADCF3;
+        opacity: 0.7;
     }
+
     &:focus{
         outline:0 none;}
 
@@ -167,7 +168,6 @@ const Upload = styled.input`
 const DiaryContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    // justify-content: space-around;
     max-height: 700px;
     width: 100%;
     overflow-y: auto;
