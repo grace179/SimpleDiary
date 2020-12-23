@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { authService, dbService } from '../fBase';
+import React, { useState } from 'react';
+import { authService} from '../fBase';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
